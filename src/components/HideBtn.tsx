@@ -1,6 +1,6 @@
 import noEye from "../assets/No-eye.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/query";
+import { RootState } from "../state/store";
 import { hideCompletedTask } from "../state/todo/todoSlice";
 import { AppDispatch } from "../state/store";
 

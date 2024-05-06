@@ -18,17 +18,21 @@ export const Task = ({ id, text }: { id: string; text: string }) => {
   const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
 
-    dispatch(
-      updateTodoToComplete({ id: todo?.id, completed: !todo?.completed })
-    );
+    if (todo) {
+      dispatch(
+        updateTodoToComplete({
+          ...todo,
+          id: todo.id,
+          completed: !todo.completed,
+        })
+      );
+    }
   };
 
   function showInputHandler() {
     setShowInput(true);
   }
-  function hideInputHandler() {
-    setShowInput(false);
-  }
+
   return (
     <div className="flex justify-between gap-4 w-full">
       <div className="inline-flex items-center">
@@ -76,7 +80,7 @@ export const Task = ({ id, text }: { id: string; text: string }) => {
       {showInput && (
         <div className="fixed top-0 right-0 left-0 bottom-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg">
-            <EditModal hideInputHandler={hideInputHandler} id={id} />
+            <EditModal setShowInput={setShowInput} id={id} />
           </div>
         </div>
       )}

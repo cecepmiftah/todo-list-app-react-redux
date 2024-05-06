@@ -1,14 +1,14 @@
-import { ChangeEvent, FormEvent, MouseEventHandler, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
 import { Todo, updateTodo } from "../state/todo/todoSlice";
 
 export const EditModal = ({
-  hideInputHandler,
   id,
+  setShowInput,
 }: {
-  hideInputHandler: MouseEventHandler<HTMLButtonElement>;
   id: string;
+  setShowInput: (value: boolean) => void;
 }) => {
   const todo = useSelector((state: RootState) =>
     state.todos.find((todo) => todo.id === id)
@@ -19,7 +19,14 @@ export const EditModal = ({
 
   function updateTodoHandler(e: ChangeEvent<HTMLInputElement>) {
     if (!todoUpdate) return;
-    setTodoUpdate({ ...todoUpdate, text: e.target.value });
+    setTodoUpdate({
+      ...todoUpdate,
+      text: e.target.value,
+    });
+  }
+
+  function hideInputHandler() {
+    setShowInput(false);
   }
 
   function updateTodoList(e: FormEvent<HTMLFormElement>) {
